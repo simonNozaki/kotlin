@@ -6,8 +6,10 @@
 package org.jetbrains.kotlin.ir.util
 
 import org.jetbrains.kotlin.backend.common.ir.fqName
+import org.jetbrains.kotlin.builtins.KotlinBuiltIns
 import org.jetbrains.kotlin.builtins.KotlinBuiltIns.FQ_NAMES
 import org.jetbrains.kotlin.builtins.UnsignedTypes
+import org.jetbrains.kotlin.descriptors.ClassDescriptor
 import org.jetbrains.kotlin.descriptors.ClassKind
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrDeclaration
@@ -25,6 +27,7 @@ val kotlinCoroutinesPackageFqn = kotlinPackageFqn.child(Name.identifier("corouti
 
 
 fun IrType.isFunction() = this.isNameInPackage("Function", kotlinPackageFqn)
+fun IrType.isKClass() = this.isNameInPackage("KClass", kotlinReflectionPackageFqn)
 fun IrType.isKFunction() = this.isNameInPackage("KFunction", kotlinReflectionPackageFqn)
 fun IrType.isSuspendFunction() = this.isNameInPackage("SuspendFunction", kotlinCoroutinesPackageFqn)
 
@@ -85,4 +88,9 @@ fun IrType.isPrimitiveArray() = isTypeFromKotlinPackage { it in FQ_NAMES.primiti
 
 fun IrType.getPrimitiveArrayElementType() = (this as? IrSimpleType)?.let {
     (it.classifier.owner as? IrClass)?.fqName?.toUnsafe()?.let { fqn -> FQ_NAMES.arrayClassFqNameToPrimitiveType[fqn] }
+}
+
+fun IrType.isNonPrimitiveArray(): Boolean {
+    val descriptor = classifierOrNull?.descriptor as? ClassDescriptor ?: return false
+    return KotlinBuiltIns.isNonPrimitiveArray(descriptor)
 }
