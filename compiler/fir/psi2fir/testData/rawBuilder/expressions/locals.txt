@@ -3,7 +3,7 @@ FILE: locals.kt
         public? final? class Local : kotlin/Any {
             public? constructor(pp: Int): super<kotlin/Any>()
 
-            public? final? property pp(val): Int
+            public? final? property pp(val): Int = pp#
                 public? get(): Int
 
             public? final? function diff(): <implicit> {

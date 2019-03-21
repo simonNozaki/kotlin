@@ -21,10 +21,10 @@ FILE: enums.kt
     public? final? enum class Planet : kotlin/Enum {
         public? constructor(m: Double, r: Double): super<kotlin/Enum>()
 
-        public? final? property m(val): Double
+        public? final? property m(val): Double = m#
             public? get(): Double
 
-        internal final? property r(val): Double
+        internal final? property r(val): Double = r#
             internal get(): Double
 
         public? final enum entry MERCURY : Planet {

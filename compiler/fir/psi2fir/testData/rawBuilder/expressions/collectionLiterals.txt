@@ -2,21 +2,21 @@ FILE: collectionLiterals.kt
     public? final? annotation class Ann1 : kotlin/Any {
         public? constructor(arr: IntArray): super<kotlin/Any>()
 
-        public? final? property arr(val): IntArray
+        public? final? property arr(val): IntArray = arr#
             public? get(): IntArray
 
     }
     public? final? annotation class Ann2 : kotlin/Any {
         public? constructor(arr: DoubleArray): super<kotlin/Any>()
 
-        public? final? property arr(val): DoubleArray
+        public? final? property arr(val): DoubleArray = arr#
             public? get(): DoubleArray
 
     }
     public? final? annotation class Ann3 : kotlin/Any {
         public? constructor(arr: Array<String>): super<kotlin/Any>()
 
-        public? final? property arr(val): Array<String>
+        public? final? property arr(val): Array<String> = arr#
             public? get(): Array<String>
 
     }

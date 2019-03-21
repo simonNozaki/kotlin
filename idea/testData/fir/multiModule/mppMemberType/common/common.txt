@@ -8,7 +8,7 @@ FILE: common.kt
     public open class Wrapper : R|kotlin/Any| {
         public constructor(list: R|MyList|): super<R|kotlin/Any|>()
 
-        public final property list(val): R|MyList|
+        public final property list(val): R|MyList| = R|/Wrapper.list|
             public get(): R|MyList|
 
     }
