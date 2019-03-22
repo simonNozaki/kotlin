@@ -151,7 +151,7 @@ object KotlinToJVMBytecodeCompiler {
             if (!checkKotlinPackageUsage(environment, ktFiles)) return false
 
             val moduleConfiguration = projectConfiguration.copy().apply {
-                if (get(JVMConfigurationKeys.OUTPUT_DIRECTORY) == null && get(JVMConfigurationKeys.OUTPUT_JAR) == null) {
+                if (buildFile != null) {
                     put(JVMConfigurationKeys.OUTPUT_DIRECTORY, File(module.getOutputDirectory()))
                 }
             }
