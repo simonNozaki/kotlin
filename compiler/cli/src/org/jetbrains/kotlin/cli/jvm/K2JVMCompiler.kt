@@ -77,7 +77,7 @@ class K2JVMCompiler : CLICompiler<K2JVMCompilerArguments>() {
         configuration.configureExplicitContentRoots(arguments)
         configuration.configureStandardLibs(paths, arguments)
 
-        if (arguments.buildFile == null && arguments.freeArgs.isEmpty() && !(arguments.version || arguments.allowNoSourceFiles)) {
+        if (arguments.buildFile == null && arguments.freeArgs.isEmpty() && !arguments.version && !arguments.allowNoSourceFiles) {
             if (arguments.script) {
                 messageCollector.report(ERROR, "Specify script source path to evaluate")
                 return COMPILATION_ERROR
