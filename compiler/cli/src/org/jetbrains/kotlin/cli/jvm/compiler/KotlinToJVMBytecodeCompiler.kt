@@ -152,6 +152,12 @@ object KotlinToJVMBytecodeCompiler {
 
             val moduleConfiguration = projectConfiguration.copy().apply {
                 if (buildFile != null) {
+                    assert(get(JVMConfigurationKeys.OUTPUT_DIRECTORY) == null) {
+                        "JVMConfigurationKeys.OUTPUT_DIRECTORY should be null, when buildFile is used"
+                    }
+                    assert(get(JVMConfigurationKeys.OUTPUT_JAR) == null) {
+                        "JVMConfigurationKeys.OUTPUT_DIRECTORY should be null, when buildFile is used"
+                    }
                     put(JVMConfigurationKeys.OUTPUT_DIRECTORY, File(module.getOutputDirectory()))
                 }
             }
