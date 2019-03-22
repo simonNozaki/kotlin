@@ -43,10 +43,7 @@ import org.jetbrains.kotlin.cli.jvm.config.*
 import org.jetbrains.kotlin.codegen.*
 import org.jetbrains.kotlin.codegen.state.GenerationState
 import org.jetbrains.kotlin.codegen.state.GenerationStateEventCallback
-import org.jetbrains.kotlin.config.CommonConfigurationKeys
-import org.jetbrains.kotlin.config.CompilerConfiguration
-import org.jetbrains.kotlin.config.JVMConfigurationKeys
-import org.jetbrains.kotlin.config.languageVersionSettings
+import org.jetbrains.kotlin.config.*
 import org.jetbrains.kotlin.fileClasses.JvmFileClassUtil
 import org.jetbrains.kotlin.idea.MainFunctionDetector
 import org.jetbrains.kotlin.javac.JavacWrapper
@@ -152,12 +149,12 @@ object KotlinToJVMBytecodeCompiler {
 
             val moduleConfiguration = projectConfiguration.copy().apply {
                 if (buildFile != null) {
-                    assert(get(JVMConfigurationKeys.OUTPUT_DIRECTORY) == null) {
-                        "JVMConfigurationKeys.OUTPUT_DIRECTORY should be null, when buildFile is used"
+                    fun checkKeyIsNull(key: CompilerConfigurationKey<*>, name: String) {
+                        assert(get(key) == null) { "$name should be null, when buildFile is used" }
                     }
-                    assert(get(JVMConfigurationKeys.OUTPUT_JAR) == null) {
-                        "JVMConfigurationKeys.OUTPUT_DIRECTORY should be null, when buildFile is used"
-                    }
+
+                    checkKeyIsNull(JVMConfigurationKeys.OUTPUT_DIRECTORY, "OUTPUT_DIRECTORY")
+                    checkKeyIsNull(JVMConfigurationKeys.OUTPUT_JAR, "OUTPUT_JAR")
                     put(JVMConfigurationKeys.OUTPUT_DIRECTORY, File(module.getOutputDirectory()))
                 }
             }
