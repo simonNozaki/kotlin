@@ -138,6 +138,13 @@ class K2JVMCompiler : CLICompiler<K2JVMCompilerArguments>() {
                 val module = ModuleBuilder(moduleName, destination?.path ?: ".", "java-production")
                 module.configureFromArgs(arguments)
 
+                if (module.getSourceFiles().isEmpty() && !arguments.allowNoSourceFiles) {
+                    if (arguments.version) return OK
+
+                    messageCollector.report(ERROR, "No source files")
+                    return COMPILATION_ERROR
+                }
+
                 ModuleChunk(listOf(module))
             }
 
@@ -146,13 +153,6 @@ class K2JVMCompiler : CLICompiler<K2JVMCompilerArguments>() {
                 ?: return COMPILATION_ERROR
             environment.registerJavacIfNeeded(arguments).let {
                 if (!it) return COMPILATION_ERROR
-            }
-
-            if (environment.getSourceFiles().isEmpty() && !arguments.allowNoSourceFiles && buildFile == null) {
-                if (arguments.version) return OK
-
-                messageCollector.report(ERROR, "No source files")
-                return COMPILATION_ERROR
             }
 
             KotlinToJVMBytecodeCompiler.compileModules(environment, buildFile, moduleChunk.modules)
