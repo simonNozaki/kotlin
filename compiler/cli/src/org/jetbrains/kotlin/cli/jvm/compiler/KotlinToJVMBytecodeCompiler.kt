@@ -428,7 +428,7 @@ object KotlinToJVMBytecodeCompiler {
 
     private fun GenerationState.Builder.withModule(module: Module?) =
         apply {
-            module?.let { module ->
+            if (module != null) {
                 targetId(TargetId(module))
                 moduleName(module.getModuleName())
                 outDirectory(File(module.getOutputDirectory()))
