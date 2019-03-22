@@ -234,16 +234,6 @@ class K2JVMCompiler : CLICompiler<K2JVMCompilerArguments>() {
         return PluginCliParser.loadPluginsSafe(pluginClasspaths, pluginOptions, configuration)
     }
 
-    private fun compileJavaFilesIfNeeded(
-        environment: KotlinCoreEnvironment,
-        arguments: K2JVMCompilerArguments
-    ): Boolean {
-        if (arguments.compileJava) {
-            return JavacWrapper.getInstance(environment.project).use { it.compile() }
-        }
-        return true
-    }
-
     private fun createCoreEnvironment(
         rootDisposable: Disposable,
         configuration: CompilerConfiguration,
