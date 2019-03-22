@@ -281,7 +281,6 @@ class K2JVMCompilerArguments : CommonCompilerArguments() {
     )
     var friendPaths: Array<String>? by FreezableVar(null)
 
-    // needed for IC and KAPT
     @Argument(
         value = "-Xallow-no-source-files",
         description = "Allow no source files"
